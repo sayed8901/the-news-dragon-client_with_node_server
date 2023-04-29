@@ -4,11 +4,14 @@ import { Link } from "react-router-dom";
 import { AuthContext } from "../../../ContextProviders/AuthProvider";
 
 const Register = () => {
-  const { createUser, updateUserData } = useContext(AuthContext);
+  const { createUser, updateUserData, errorMsg, setErrorMsg, successMsg, setSuccessMsg } = useContext(AuthContext);
 
   const [accepted, setAccepted] = useState(false);
 
   const handleRegister = (event) => {
+    setErrorMsg('');
+    setSuccessMsg('');
+
     event.preventDefault();
     const form = event.target;
     const name = form.name.value;
@@ -20,27 +23,36 @@ const Register = () => {
     createUser(email, password)
       .then((result) => {
         const createdUser = result.user;
+        setSuccessMsg('New User Created Successfully.');
+
+        if(createdUser){
+          // updating user data to firebase auth
+          updateUserData(name, imgThumb)
+            .then(() => {
+              const successMessage = "Profile updated successfully.";
+              console.log(successMessage);
+              setSuccessMsg(successMessage);
+            })
+            .catch((error) => {
+              console.log(error.message);
+              setErrorMsg(error.message);
+            });
+        }
+
         console.log(createdUser);
         form.reset();
       })
+      
       .catch((error) => {
         console.log(error.message);
-      });
-
-    // updating user data to firebase auth
-    updateUserData(name, imgThumb)
-      .then(() => {
-        console.log("Profile updated successfully.");
-      })
-      .catch((error) => {
-        console.log(error.message);
+        setErrorMsg(error.message);
       });
   };
 
   const handleChecked = (event) => {
     // console.log(event.target.checked);
     setAccepted(event.target.checked);
-  }
+  };
 
   return (
     <Container className="mx-auto w-25">
@@ -109,8 +121,9 @@ const Register = () => {
         <Form.Text className="text-secondary">
           Already have an account? <Link to={"/login"}>Login</Link>
         </Form.Text>
-        <Form.Text className="text-success"></Form.Text>
-        <Form.Text className="text-danger"></Form.Text>
+
+        <p className="mt-3">{errorMsg ? errorMsg : successMsg }</p>
+
       </Form>
     </Container>
   );

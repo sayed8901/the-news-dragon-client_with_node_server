@@ -13,6 +13,9 @@ const AuthProvider = ({children}) => {
 
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
+
+    const [errorMsg, setErrorMsg] = useState('');
+    const [successMsg, setSuccessMsg] = useState('');
     
     const createUser = (email, password) => {
         setLoading(true);
@@ -44,7 +47,7 @@ const AuthProvider = ({children}) => {
         return () => {unmount()};
     } ,[])
 
-    const authInfo = {user, loading, createUser, userLogin, updateUserData, logOut, }
+    const authInfo = {user, loading, createUser, userLogin, updateUserData, logOut, errorMsg, setErrorMsg, successMsg, setSuccessMsg, }
 
     return (
         <AuthContext.Provider value={authInfo}>

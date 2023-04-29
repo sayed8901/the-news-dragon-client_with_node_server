@@ -5,7 +5,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../../ContextProviders/AuthProvider";
 
 const Login = () => {
-  const {userLogin} = useContext(AuthContext);
+  const { userLogin, errorMsg, setErrorMsg, successMsg, setSuccessMsg } = useContext(AuthContext);
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -13,6 +13,9 @@ const Login = () => {
   // console.log(fromLocation);
 
   const handleLogin = (event) => {
+    setErrorMsg('');
+    setSuccessMsg('');
+    
     event.preventDefault();
     const form = event.target;
     const email = form.email.value;
@@ -23,6 +26,7 @@ const Login = () => {
     .then(result => {
       const LoggedUser = result.user;
       console.log(LoggedUser);
+      setSuccessMsg('User Logged in Successfully.')
 
       form.reset();
 
@@ -30,6 +34,7 @@ const Login = () => {
     })
     .catch(error => {
       console.log(error.message);
+      setErrorMsg(error.message);
     })
   }
 
@@ -71,8 +76,9 @@ const Login = () => {
         <Form.Text className="text-secondary">
           Don't have an account? <Link to={"/register"}>Register</Link>
         </Form.Text>
-        <Form.Text className="text-success"></Form.Text>
-        <Form.Text className="text-danger"></Form.Text>
+
+        <p className="mt-3">{errorMsg ? errorMsg : successMsg }</p>
+        
       </Form>
     </Container>
   );
