@@ -34,17 +34,17 @@ const NavigationBar = () => {
 
             <Nav className="d-flex align-items-center gap-3">
               {user && (
-                  <div className="d-flex gap-2 justify-content-center align-items-center bg-primary py-2 px-3 rounded-4">
+                  <div className="d-flex gap-2 justify-content-center align-items-center bg-primary py-2 px-3 rounded-5">
                     <img className="rounded-circle" src={user?.photoURL} alt="" />
                     <b className="text-white my-0">{user?.displayName}</b>
                   </div>
               )}
 
                 {user ? (
-                  <Button onClick={handleLogOut} variant="secondary">Log out</Button>
+                  <Button onClick={handleLogOut} variant="warning">Log out</Button>
                 ) : (
                   <Link to={"/login"}>
-                    <Button variant="secondary">Log in</Button>
+                    <Button variant="success">Log in</Button>
                   </Link>
                 )}
 
