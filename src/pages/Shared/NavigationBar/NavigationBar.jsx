@@ -34,8 +34,8 @@ const NavigationBar = () => {
 
             <Nav className="d-flex align-items-center gap-3">
               {user && (
-                  <div className="d-flex gap-2 justify-content-center align-items-center bg-primary py-2 px-3 rounded-5">
-                    <img className="rounded-circle" src={user?.photoURL} alt="" />
+                  <div className="d-flex gap-2 justify-content-center align-items-center bg-primary p-2 rounded-5">
+                    <img className="rounded-circle" style={{width:"32px"}} src={user?.photoURL} alt="" />
                     <b className="text-white my-0">{user?.displayName}</b>
                   </div>
               )}
