@@ -1,10 +1,13 @@
 import React from "react";
 import { Button, Card } from "react-bootstrap";
 import { FaArrowLeft } from "react-icons/fa";
-import { Link, useLoaderData } from "react-router-dom";
+import { Link, useLoaderData, useParams } from "react-router-dom";
 import EditorsInsight from "../EditorsInsight/EditorsInsight";
 
 const News = () => {
+  const {id} = useParams();
+  console.log(id);
+  
   const news = useLoaderData();
   //   console.log(news);
 
