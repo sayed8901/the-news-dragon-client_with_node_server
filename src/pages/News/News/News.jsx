@@ -3,6 +3,7 @@ import { Button, Card } from "react-bootstrap";
 import { FaArrowLeft } from "react-icons/fa";
 import { Link, useLoaderData, useParams } from "react-router-dom";
 import EditorsInsight from "../EditorsInsight/EditorsInsight";
+import useTitle from "../../../Hooks/useTitle";
 
 const News = () => {
   const {id} = useParams();
@@ -12,6 +13,9 @@ const News = () => {
   //   console.log(news);
 
   const { _id, title, image_url, details, category_id } = news;
+
+  useTitle('News');
+
 
   return (
     <div>
